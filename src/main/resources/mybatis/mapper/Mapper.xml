@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.jtong.training.demo.smart.domain.persistent.model.user.mybatis.UserModelMapper">
+    <select id="findUserById" resultMap="model.user">
+        select u.id               as id,
+               u.name             as name,
+               u.age            as age
+        from my_user u
+        where u.id = #{id}
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="holder.id" keyColumn="id"
+            parameterType="dev.jtong.training.demo.smart.domain.persistent.model.user.mybatis.UserModelMapper">
+        insert into my_user (name, age)
+        values (#{user.name}, #{user.age});
+    </insert>
+
+    <delete id="deleteUserById">
+        delete from my_user where id=#{id};
+    </delete>
+
+    <select id="findUsersAgeBiggerThan" resultMap="model.user">
+        select * from my_user where age > #{ageBar} limit #{from}, #{size};
+
+    </select>
+    <update id="updateUser">
+        update my_user set
+              name = #{user.name},
+              age = #{user.age}
+        where id = #{user.id}
+    </update>
+
+
+
+</mapper>
